@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengumuman Kelulusan</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('background.jpg');
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  background: rgba(0,0,0,0.6);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.logo {
+  width: 100px;
+}
+
+.banner {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.foto-kepsek {
+  width: 130px;
+  border-radius: 10px;
+  margin: 10px auto;
+  display: block;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 5px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+input, button {
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+button {
+  background: #00c6ff;
+  color: white;
+  cursor: pointer;
+}
+
+.result {
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- FOTO KELAS -->
+<img src="kelas.jpg" class="banner">
+
+<!-- LOGO -->
+<img src="logo.png" class="logo">
+
+<h2>SMA NEGERI 2 BALIGE</h2>
+<h1>Pengumuman Kelulusan</h1>
+<h3>Tahun Ajaran 2025/2026</h3>
+
+<!-- SAMBUTAN -->
+<p><b>Sambutan Kepala Sekolah</b></p>
+
+<img src="kepsek.JPEG" class="foto-kepsek">
+
+<p style="text-align: justify;">
+Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas rahmat dan karunia-Nya,
+sehingga pada hari ini kita dapat mengumumkan hasil kelulusan peserta didik.
+
+Kami mengucapkan selamat kepada seluruh siswa yang telah menyelesaikan pendidikan
+dengan baik. Semoga keberhasilan ini menjadi langkah awal menuju masa depan yang lebih cerah.
+
+Teruslah belajar, berkembang, dan menjaga nama baik almamater.
+</p>
+
+<p><b>Ani Sefriana Nadapdap, S.Pd., M.Si.</b></p>
+
+<!-- GALERI -->
+<div class="gallery">
+  <img src="kegiatan1.jpg">
+  <img src="kegiatan2.jpg">
+  <img src="kegiatan3.jpg">
+  <img src="kegiatan4.jpg">
+  <img src="kegiatan5.jpg">
+  <img src="kegiatan6.jpg">
+</div>
+
+<hr>
+
+<p>Masukkan NISN Anda</p>
+
+<input type="text" id="nisn" placeholder="Contoh: 1234567890">
+<br>
+
+<button onclick="cekKelulusan()">Cek Hasil</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script src="data.js"></script>
+
+<script>
+function cekKelulusan(){
+
+ const now = new Date();
+ const openTime = new Date("2026-05-04T15:00:00");
+
+ const result = document.getElementById("result");
+
+ if(now < openTime){
+   result.innerHTML = "⏳ Pengumuman dibuka pukul 15:00";
+   return;
+ }
+
+ const nisn = document.getElementById("nisn").value;
+
+ if(!/^[0-9]+$/.test(nisn)){
+   result.innerHTML = "❌ NISN tidak valid";
+   return;
+ }
+
+ const hasil = siswa.find(s => s.nisn === nisn);
+
+ if(!hasil){
+   result.innerHTML = "❌ NISN tidak ditemukan";
+ } else {
+   result.innerHTML = `
+     <h2>${hasil.nama}</h2>
+     <p style="color:lightgreen;font-size:24px;">🎉 SELAMAT ANDA LULUS 🎉</p>
+     <a href="${hasil.link}" target="_blank">
+       <button>Download Surat Kelulusan</button>
+     </a>
+   `;
+
+   confetti({
+     particleCount: 150,
+     spread: 100,
+     origin: { y: 0.6 }
+   });
+ }
+}
+</script>
+
+</body>
+</html>
